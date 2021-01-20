@@ -45,7 +45,7 @@ inquirer
     .then((data) => {
     console.log(data);
     const { name, description, installation, usage, license, contribution, tests } = data;
-    console.log(name);
+    console.log(description);
     const generateMD = `
     #${name}
    
