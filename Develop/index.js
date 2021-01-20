@@ -46,12 +46,35 @@ inquirer
     console.log(data);
     const { name, description, installation, usage, license, contribution, tests } = data;
     console.log(name);
-    const generateMD = 
+    const generateMD = `
+    #${name}
+   
+    ## Description 
+    ${description}
+   
+    ## Installation
+    ${installation}
+   
+    ## Usage
+    ${usage}
+
+    ## Contributing
+    ${contribution}
+
+    ## Tests
+    ${tests}
+    
+    ## License
+    ${license}
+    `;
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
+// function writeToFile(fileName, data) {}
+        fs.writeFile("README.md", generateMD, err => 
+        err ? console.log(err) : console.log("Success!"))
 
 // TODO: Create a function to initialize app
 function init() {}
 
 // Function call to initialize app
 init();
+})
