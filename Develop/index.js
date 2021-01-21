@@ -27,7 +27,7 @@ const questions = [
   {
     type: "list",
     message: "Select a icense:",
-    choices: ["Apache 2.0", "Boose 1.0", "none"],
+    choices: ["Apache 2.0", "Boost 1.0", "none"],
     name: "license",
   },
   {
