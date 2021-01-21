@@ -1,80 +1,64 @@
 // TODO: Include packages needed for this application
-const fs = require('fs');
-const inquirer = require('inquirer');
-const generateMarkdown = require('./utils/generateMarkdown');
+const fs = require("fs");
+const inquirer = require("inquirer");
+const generateMarkdown = require("./utils/generateMarkdown");
 // TODO: Create an array of questions for user input
-const questions = [];
-inquirer
-    .prompt([
-        {
-            type: "input",
-            message: "What is the title of your project?",
-            name: "name",
-        },
-        {
-            type: "input",
-            message: "Enter a brief description of your project.",
-            name: "description",
-        },
-        {
-            type: "input",
-            message: "Enter any specific installation instructions.",
-            name: "installation",
-        },
-        {
-            type: "input",
-            message: "Enter any usage of project.",
-            name: "usage",
-        },
-        {
-            type: "input",
-            message: "Enter any licensing informtion.",
-            name: "license",
-        },
-        {
-            type: "input",
-            message: "Enter any contribution guidlines.",
-            name: "contribution",
-        },
-        {
-            type: "input",
-            message: "Enter any test instructions.",
-            name: "tests",
-        },
-    ])
-    .then((data) => {
-    console.log(data);
-    const { name, description, installation, usage, license, contribution, tests } = data;
-    console.log(description);
-    const generateMD = `
-    #${name}
-   
-    ## Description 
-    ${description}
-   
-    ## Installation
-    ${installation}
-   
-    ## Usage
-    ${usage}
+const questions = [
+  {
+    type: "input",
+    message: "What is the title of your project?",
+    name: "name",
+  },
+  {
+    type: "input",
+    message: "Enter a brief description of your project:",
+    name: "description",
+  },
+  {
+    type: "input",
+    message: "Enter any specific installation instructions:",
+    name: "installation",
+  },
+  {
+    type: "input",
+    message: "Enter any usage of project:",
+    name: "usage",
+  },
+  {
+    type: "list",
+    message: "Select a icense:",
+    choices: ["Apache 2.0", "Boose 1.0", "none"],
+    name: "license",
+  },
+  {
+    type: "input",
+    message: "Enter any contribution guidlines:",
+    name: "contribution",
+  },
+  {
+    type: "input",
+    message: "Enter any test instructions:",
+    name: "tests",
+  },
+];
 
-    ## Contributing
-    ${contribution}
-
-    ## Tests
-    ${tests}
-    
-    ## License
-    ${license}
-    `;
 // TODO: Create a function to write README file
-// function writeToFile(fileName, data) {}
-        fs.writeFile("README.md", generateMD, err => 
-        err ? console.log(err) : console.log("Success!"))
+function writeToFile(fileName, data) {
+  fs.writeFile(fileName, data, (err) =>
+    err ? console.log(err) : console.log("Success!")
+  );
+}
 
 // TODO: Create a function to initialize app
-function init() {}
+function init() {
+  inquirer.prompt(questions).then((data) => {
+    console.log(data);
+    console.log(generateMarkdown(data));
+    const fileName = "README.md";
+
+    writeToFile(fileName, generateMarkdown(data));
+  });
+}
 
 // Function call to initialize app
 init();
-})
